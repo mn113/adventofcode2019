@@ -9,54 +9,94 @@ def run_program():
     i = 0
     while 1:
         if mem[i] == 99:
+            print("HALT")
             break
         operator = str(mem[i])
         param_modes, opcode = operator[:-2], operator[-2:]
-        #print(i, mem[i], "\n-", param_modes, "\n--", opcode)
+        if not param_modes:
+            param_modes = '000'
         i = run_instruction(i, param_modes[::-1], opcode)
 
-def run_instruction(i, param_modes, opcode):
+def run_instruction(i, modes, opcode):
     global mem
     global inp
 
-    print(i, mem[i:i+4])
+    mode1 = modes[0]
+    if len(modes) > 1:
+        mode2 = modes[1]
+    else:
+        mode2 = '0'
 
     # LHS cannot depend on mode - always refers to mem address
     if len(opcode) == 1:
         opcode = '0' + opcode
 
-    # address mode - values refer to mem addresses
-    p1 = mem[mem[i+1]]
-    if opcode == '01' or opcode == '02':
-        p2 = mem[mem[i+2]]
+    if opcode in ['01', '02', '04', '05', '06', '07', '08']:
+        p1 = get_param(mode1, i+1)
 
-    # immediate mode - values used directly
-    if len(param_modes) > 0 and param_modes[0] == '1':
-        p1 = mem[i+1]
-    if len(param_modes) > 1 and param_modes[1] == '1' and opcode == '01' or opcode == '02':
-        p2 = mem[i+2]
+    if opcode in ['01', '02', '05', '06', '07', '08']:
+        p2 = get_param(mode2, i+2)
 
-    if (opcode == '01'):
+    if opcode == '01':
+        # Add
         mem[mem[i+3]] = p1 + p2
         return i + 4
-    elif (opcode == '02'):
+
+    elif opcode == '02':
+        # Multiply
         mem[mem[i+3]] = p1 * p2
         return i + 4
-    elif (opcode == '03'):
+
+    elif opcode == '03':
+        # Take input
         mem[mem[i+1]] = inp
         return i + 2
-    elif (opcode == '04'):
+
+    elif opcode == '04':
+        # Print output
         print("-->", p1, "<---")
         return i + 2
 
-def part1():
-    run_program()
-    print(mem)
+    elif opcode == '05':
+        # Jump if non-zero
+        if p1 != 0:
+            return p2
+        return i + 3
 
-def part2():
-    pass
+    elif opcode == '06':
+        # Jump if zero
+        if p1 == 0:
+            return p2
+        return i + 3
+
+    elif opcode == '07':
+        # Less than
+        if p1 < p2:
+            mem[mem[i+3]] = 1
+        else:
+            mem[mem[i+3]] = 0
+        return i + 4
+
+    elif opcode == '08':
+        # Equals
+        if p1 == p2:
+            mem[mem[i+3]] = 1
+        else:
+            mem[mem[i+3]] = 0
+        return i + 4
+
+def get_param(mode, j):
+    global mem
+    if mode == '0':
+        # address mode - values refer to mem addresses
+        return mem[mem[j]]
+    elif mode == '1':
+        # immediate mode - values used directly
+        return mem[j]
+    return False
 
 mem = read_input()
-inp = 1
-part1()
-part2()
+inp = 5
+run_program()
+# 16489636
+# 9386583
