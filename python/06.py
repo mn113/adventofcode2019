@@ -1,5 +1,5 @@
 def read_input():
-    with open('../inputs/input06b.txt') as fp:
+    with open('../inputs/input06.txt') as fp:
         lines = fp.readlines()
         return [line.strip().split(")") for line in lines]
 
@@ -15,16 +15,17 @@ def count_traversal(graph):
             else:
                 dists[nxt] = dist
 
-    print("counted", steps)
-
 def parent(val, graph):
     found = [p for p in graph if val in graph[p]]
-    print('f', found, 'for', val)
     if len(found):
         return found[0]
     return None
 
 def parent_chain(val, graph):
+    global total_orbits
+    global you_chain
+    global san_chain
+
     initial = val
     chain = []
     while 1:
@@ -34,29 +35,45 @@ def parent_chain(val, graph):
         chain.append(val)
         if val == 'COM':
             break
-    print(initial, chain, len(chain))
+
+    if initial == 'YOU':
+        you_chain = chain
+    elif initial == 'SAN':
+        san_chain = chain
+
+    total_orbits += len(chain)
 
 def part1():
+    global total_orbits
     orbits = read_input()
-    nodes = []
+    nodes = set()
     graph = {}
     for o in orbits:
         key = o[0]
         val = o[1]
-        nodes.append(val)
+        nodes.add(val)
         if key not in graph:
             graph[key] = [val]
         else:
             graph[key].append(val)
-    print(graph)
 
-    tails = [n for n in nodes if n not in graph]
-    print(tails)
-    for t in tails:
+    for t in nodes:
         parent_chain(t, graph)
 
+    print("total orbits", total_orbits)
+
 def part2():
-    pass
+    global you_chain
+    global san_chain
+    i = 0
+    while 1:
+        n = you_chain[i]
+        if n in san_chain:
+            print(n, i, san_chain.index(n))
+            break
+        i += 1
+
+total_orbits = 0
 
 part1()
 part2()
