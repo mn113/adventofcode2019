@@ -26,7 +26,7 @@ defmodule Fuel do
 
     def part2 do
         read_input()
-        |> Enum.map(fn m -> calc_fuel(m, 0) end)
+        |> Enum.map(&(calc_fuel(&1, 0)))
         |> Enum.sum
     end
 end
