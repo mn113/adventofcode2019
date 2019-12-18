@@ -15,3 +15,7 @@ https://adventofcode.com/2019
 - [Day 11](https://adventofcode.com/2019/day/11) - :star: :star: - [11.py](python/11.py)
 - [Day 12](https://adventofcode.com/2019/day/12) - :star: :star: - [12.rb](ruby/12.rb)
 - [Day 13](https://adventofcode.com/2019/day/13) - :star: :star: - [13.py](python/13.py)
+- [Day 14](https://adventofcode.com/2019/day/13) - :star: :star: - [14.rb](ruby/14.rb)
+- [Day 15](https://adventofcode.com/2019/day/13) - :star: :star: - [15.py](python/15.py)
+- [Day 16](https://adventofcode.com/2019/day/13) - :star: :star: - [16.rb](ruby/16.rb)
+- [Day 17](https://adventofcode.com/2019/day/13) - :star: :star: - [17.py](python/17.py)
