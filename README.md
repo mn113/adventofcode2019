@@ -3,7 +3,7 @@
 https://adventofcode.com/2019
 
 | AOC link | completion | Python soln | Ruby soln | Other soln |
-|==========|============|=============|===========|============|
+|----------|------------|:-----------:|:---------:|:----------:|
 | [Day 01](https://adventofcode.com/2019/day/1)  | :star: :star: | :snake: [01.py](python/01.py) | :rotating_light: [01.rb](ruby/01.rb) | :godmode: [01.exs](elixir/01.exs) |
 | [Day 02](https://adventofcode.com/2019/day/2)  | :star: :star: | :snake: [02.py](python/02.py) | -                   | |
 | [Day 03](https://adventofcode.com/2019/day/3)  | :star: :star: | :snake: [03.py](python/03.py) | -                   | |
