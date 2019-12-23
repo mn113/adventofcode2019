@@ -17,7 +17,13 @@ https://adventofcode.com/2019
 | [Day 11](https://adventofcode.com/2019/day/11) | :star: :star: | :snake: [11.py](python/11.py) | -                   | |
 | [Day 12](https://adventofcode.com/2019/day/12) | :star: :star: | - | :rotating_light: [12.rb](ruby/12.rb) | |
 | [Day 13](https://adventofcode.com/2019/day/13) | :star: :star: | :snake: [13.py](python/13.py) | -                   | |
-| [Day 14](https://adventofcode.com/2019/day/13) | :star: :star: | - | :rotating_light: [14.rb](ruby/14.rb) | |
-| [Day 15](https://adventofcode.com/2019/day/13) | :star: :star: | :snake: [15.py](python/15.py) | -                   | |
-| [Day 16](https://adventofcode.com/2019/day/13) | :star: :star: | - | :rotating_light: [16.rb](ruby/16.rb) | |
-| [Day 17](https://adventofcode.com/2019/day/13) | :star: :star: | :snake: [17.py](python/17.py) | -                   | |
+| [Day 14](https://adventofcode.com/2019/day/14) | :star: :star: | - | :rotating_light: [14.rb](ruby/14.rb) | |
+| [Day 15](https://adventofcode.com/2019/day/15) | :star: :star: | :snake: [15.py](python/15.py) | -                   | |
+| [Day 16](https://adventofcode.com/2019/day/16) | :star: :star: | - | :rotating_light: [16.rb](ruby/16.rb) | |
+| [Day 17](https://adventofcode.com/2019/day/17) | :star: :star: | :snake: [17.py](python/17.py) | -                   | |
+| [Day 18](https://adventofcode.com/2019/day/18) | -  | -  | - | |
+| [Day 19](https://adventofcode.com/2019/day/19) | :star: :star: | :snake: [19.py](python/19.py) | -                   | |
+| [Day 20](https://adventofcode.com/2019/day/20) | :star:        | - | :rotating_light: [20.rb](ruby/20.rb) | |
+| [Day 21](https://adventofcode.com/2019/day/21) | -  | -  | - | |
+| [Day 22](https://adventofcode.com/2019/day/22) | :star:        | - | :rotating_light: [22.rb](ruby/22.rb) | |
+| [Day 23](https://adventofcode.com/2019/day/23) | -  | -  | - | |
