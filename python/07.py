@@ -1,18 +1,49 @@
 import itertools
+import time
+import threading
+import concurrent.futures
+
 
 def read_input():
     with open('../inputs/input07.txt') as fp:
         lines = fp.readlines()[0].split(',')
-        # lines = "3,26,1001,26,-4,26,3,27,1002,27,2,27,1,27,26,27,4,27,1001,28,-1,28,1005,28,6,99,0,0,5".split(',')
+        lines = "3,26,1001,26,-4,26,3,27,1002,27,2,27,1,27,26,27,4,27,1001,28,-1,28,1005,28,6,99,0,0,5".split(',')
         return [int(n) for n in lines]
 
+amp_states = {
+    0: 'AMP_STOPPED',
+    1: 'AMP_RUNNING',
+    2: 'AMP_PAUSED_FOR_INPUT',
+    3: 'AMP_HALTED'
+}
+
 class Amp:
-    def __init__(self, phase):
+    def __init__(self, id, phase):
+        self.id = id
         self.phase = phase
         self.mem = read_input()
         self.ptr = 0
+        self.state = 0
 
-    def run_program(self, inp):
+    def __str__(self):
+        global amp_states
+        return f"Amp id {self.id}, phase {self.phase}, ptr {self.ptr}, {amp_states[self.state]}\n"
+
+    def get_input(self):
+        global inputs
+        self.state = 2
+        #print(f"{self.id} awaits input")
+        while inputs[self.id] == None:
+            time.sleep(.01)
+        val = inputs[self.id]
+        inputs[self.id] = None
+        print(f"{self.id} got input: {val}")
+        self.state = 1
+        return val
+
+    def run_program(self):
+        print("Amp", self.id, "started to run")
+        self.state = 1
         def run_instruction(i, modes, opcode):
             def get_param(mode, j):
                 if mode == '0':
@@ -39,6 +70,8 @@ class Amp:
             if opcode in ['01', '02', '05', '06', '07', '08']:
                 p2 = get_param(mode2, i+2)
 
+            print(opcode, i, self.mem[i:i+4], modes)
+
             if opcode == '01':
                 # Add
                 self.mem[self.mem[i+3]] = p1 + p2
@@ -51,15 +84,17 @@ class Amp:
 
             elif opcode == '03':
                 # Take input
-                if self.phase:
+                if type(self.phase) is int:
                     self.mem[self.mem[i+1]] = self.phase
+                    self.phase = None
                 else:
-                    self.mem[self.mem[i+1]] = inp
+                    self.mem[self.mem[i+1]] = self.get_input()
                 return i + 2
 
             elif opcode == '04':
                 # Return output
-                return [True, p1]
+                handle_output(self.id, p1)
+                return i + 2
 
             elif opcode == '05':
                 # Jump if non-zero
@@ -92,6 +127,7 @@ class Amp:
         while 1:
             if self.mem[self.ptr] == 99:
                 print("HALT")
+                self.state = 3
                 return None
             operator = str(self.mem[self.ptr])
             param_modes, opcode = operator[:-2], operator[-2:]
@@ -104,28 +140,50 @@ class Amp:
                 if len(self.ptr) > 1:
                     return self.ptr[1]
 
+inputs = []
+outputs = []
+
+def reset_io():
+    global inputs
+    global outputs
+    inputs = [0] + [None] * 4
+    outputs = [None] * 5
+
+best_signal = 0
+best_perm = None
+
+def handle_output(id, val):
+    global best_signal
+    global best_perm
+    print("got output on id", id, "=>", val)
+    outputs[id] = val
+    if id == 4 and outputs[4] > best_signal:
+        best_signal = outputs[4]
+        best_perm = perm
+        print("new best signal:", best_signal, best_perm)
+    # queue next input
+    inputs[(id + 1) % 5] = val
+
+
 def part1():
+    global best_signal
+    global best_perm
+    global outputs
     perms = list(itertools.permutations([0,1,2,3,4]))
-    best_signal = 0
-    best_perm = None
     for perm in perms:
-        amps = [Amp(phase) for phase in list(perm)]
-        signal = (
-            amps[4].run_program(
-                amps[3].run_program(
-                    amps[2].run_program(
-                        amps[1].run_program(
-                            amps[0].run_program(0)
-                        )
-                    )
-                )
-            )
-        )
-        if signal > best_signal:
-            best_signal = signal
-            best_perm = perm
+        print(perm)
+        amps = [Amp(id, phase) for id, phase in enumerate(list(perm))]
+        reset_io()
+        print(amps[0], amps[1])
+
+        with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+            for i in range(5):
+                executor.submit(amps[i].run_program)
+        print("signal:", outputs[4])
+
     print("perm:", best_perm, "sig:", best_signal)
     print("=====")
+
 
 def part2():
     #perms = list(itertools.permutations(range(5,10)))
@@ -141,4 +199,13 @@ def part2():
             break
     print("signal:", inp, "n:", n)
 
-part1()
+    # current_index = 0
+    # signal = 0
+    # while 1:
+    #     signal = amps[current_index].run_program(signal)
+    #     current_index += 1
+
+# part1()
+reset_io()
+amp0 = Amp(0, 1)
+amp0.run_program()
