@@ -27,3 +27,4 @@ https://adventofcode.com/2019
 | [Day 21](https://adventofcode.com/2019/day/21) | -  | -  | - | |
 | [Day 22](https://adventofcode.com/2019/day/22) | :star:        | - | :rotating_light: [22.rb](ruby/22.rb) | |
 | [Day 23](https://adventofcode.com/2019/day/23) | -  | -  | - | |
+| [Day 24](https://adventofcode.com/2019/day/24) | :star:        | - | :rotating_light: [24.rb](ruby/24.rb) | |
