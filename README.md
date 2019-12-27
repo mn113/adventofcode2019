@@ -6,7 +6,7 @@ https://adventofcode.com/2019
 |----------|------------|:-----------:|:---------:|:----------:|
 | [Day 01](https://adventofcode.com/2019/day/1)  | :star: :star: | :snake: [01.py](python/01.py) | :rotating_light: [01.rb](ruby/01.rb) | :godmode: [01.exs](elixir/01.exs) |
 | [Day 02](https://adventofcode.com/2019/day/2)  | :star: :star: | :snake: [02.py](python/02.py) | -                   | |
-| [Day 03](https://adventofcode.com/2019/day/3)  | :star: :star: | :snake: [03.py](python/03.py) | -                   | |
+| [Day 03](https://adventofcode.com/2019/day/3)  | :star: :star: | :snake: [03.py](python/03.py) | :rotating_light: [03.rb](ruby/03.rb) | |
 | [Day 04](https://adventofcode.com/2019/day/4)  | :star: :star: | :snake: [04.py](python/04.py) | :rotating_light: [04.rb](ruby/04.rb) | :godmode: [04.exs](elixir/04.exs) |
 | [Day 05](https://adventofcode.com/2019/day/5)  | :star: :star: | :snake: [05.py](python/05.py) | -                   | |
 | [Day 06](https://adventofcode.com/2019/day/6)  | :star: :star: | :snake: [06.py](python/06.py) | -                   | |
